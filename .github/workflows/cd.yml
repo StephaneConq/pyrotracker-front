@@ -16,10 +16,12 @@ jobs:
       with:
         node-version: '12'
     - run: npm install
- 
-    - uses: actions/gcloud/auth@master
-      env:
-        GCLOUD_AUTH: ${{ secrets.GCLOUD_AUTH }}
+
+    - name: Setup gcloud environment
+      uses: GoogleCloudPlatform/github-actions@0.1.2
+      with:
+        service_account_key: ${{ secrets.GCLOUD_AUTH }}
+
     - name: GCP Storage
       uses: convictional/gcp-storage-action@v0.1.1
       with:
