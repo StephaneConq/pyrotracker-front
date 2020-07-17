@@ -1,0 +1,33 @@
+name: CI
+ 
+on:
+  push:
+    tags:
+      - v*
+ 
+jobs:
+  build:
+ 
+    runs-on: ubuntu-latest
+     
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '12'
+    - run: npm install
+ 
+    - uses: actions/gcloud/auth@master
+      env:
+        GCLOUD_AUTH: ${{ secrets.GCLOUD_AUTH }}
+    - name: GCP Storage
+      uses: convictional/gcp-storage-action@v0.1.1
+      with:
+        source_file: gs://pyrotracker-credentials/front/environment.prod.ts
+        destination_file: src/environments/environment.prod.ts
+
+    - run: ng build --prod
+ 
+    - uses: actions/gcloud/cli@master
+      with:
+        args: "app deploy app.yml --quiet --project=pyrotracker --version=${{steps.tag.outputs.tag}}"
