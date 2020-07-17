@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "pyrotracker": {
+      "hosting": {
+        "front": [
+          "pyrotracker"
+        ]
+      }
+    }
+  }
+}

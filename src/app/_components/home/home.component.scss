@@ -1,0 +1,30 @@
+.add-event {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+}
+
+::ng-deep.cal-day-number,
+::ng-deep.cal-cell,
+::ng-deep.cal-week-view .cal-time,
+::ng-deep.cal-week-view .cal-day-headers{
+  color: #4caf50;
+}
+
+/*
+::ng-deep.cal-month-view {
+  background-color: #303030;
+}
+*/
+
+::ng-deep.event-handling {
+  color: white;
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: bold;
+
+  &:hover {
+    font-weight: bolder;
+    color: red;
+  }
+}

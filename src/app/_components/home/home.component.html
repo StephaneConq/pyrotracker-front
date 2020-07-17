@@ -1,0 +1,84 @@
+<div fxLayoutAlign="center center">
+  <h1>{{ viewDate | calendarDate:(view + 'ViewTitle'):'fr-FR' }}</h1>
+</div>
+
+
+<div fxLayoutAlign="space-evenly center">
+  <button mat-raised-button
+          (click)="setView(CalendarView.Month)"
+          [class.active]="view === CalendarView.Month">Mois
+  </button>
+  <button mat-raised-button
+          (click)="setView(CalendarView.Week)"
+          [class.active]="view === CalendarView.Week">Semaine
+  </button>
+  <button mat-raised-button
+          (click)="setView(CalendarView.Day)"
+          [class.active]="view === CalendarView.Day">Jour
+  </button>
+</div>
+
+
+<div fxLayoutAlign="space-between center">
+  <button mat-icon-button
+          mwlCalendarPreviousView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewDateChange)="closeOpenMonthViewDay()">
+    <mat-icon>keyboard_arrow_left</mat-icon>
+  </button>
+  <button mat-button
+          mwlCalendarToday
+          [(viewDate)]="viewDate">Aujourd'hui
+  </button>
+  <button mat-icon-button
+          mwlCalendarNextView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewDateChange)="closeOpenMonthViewDay()">
+    <mat-icon>keyboard_arrow_right</mat-icon>
+  </button>
+</div>
+
+<div [ngSwitch]="view">
+  <mwl-calendar-month-view
+    *ngSwitchCase="CalendarView.Month"
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refresh"
+    [weekStartsOn]="startDay"
+    [activeDayIsOpen]="activeDayIsOpen"
+    (dayClicked)="dayClicked($event.day)"
+    (eventClicked)="openEventDetails($event.event)"
+    (eventTimesChanged)="eventTimesChanged($event)"
+  >
+  </mwl-calendar-month-view>
+  <mwl-calendar-week-view
+    *ngSwitchCase="CalendarView.Week"
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refresh"
+    [weekStartsOn]="startDay"
+    [locale]="'fr'"
+    (hourSegmentClicked)="setSelectedDate($event.date)"
+    (eventClicked)="openEventDetails($event.event)"
+    (eventTimesChanged)="eventTimesChanged($event)"
+  >
+  </mwl-calendar-week-view>
+  <mwl-calendar-day-view
+    *ngSwitchCase="CalendarView.Day"
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refresh"
+    [locale]="'fr'"
+    (eventClicked)="openEventDetails($event.event)"
+    (hourSegmentClicked)="setSelectedDate($event.date)"
+    (eventTimesChanged)="eventTimesChanged($event)"
+  >
+  </mwl-calendar-day-view>
+</div>
+
+
+<button mat-fab class="add-event" (click)="openCreateBottomSheet()">
+  <mat-icon>add</mat-icon>
+</button>

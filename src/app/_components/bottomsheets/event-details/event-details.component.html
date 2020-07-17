@@ -1,0 +1,20 @@
+<div fxLayoutAlign="space-between center">
+  <h2>{{data.event.title}}</h2>
+
+  <div>
+    <button mat-icon-button (click)="delete()">
+      <mat-icon>delete</mat-icon>
+    </button>
+    <button mat-icon-button (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>
+
+<p>
+  <b>Date : </b><span>{{data.event.start.toLocaleString()}}</span>
+</p>
+<p *ngIf="data.event.meta.assignee && users">
+  <b>Assigné à
+    : </b><span>{{findUser(data.event.meta.assignee) ? findUser(data.event.meta.assignee).displayName : data.event.meta.assignee}}</span>
+</p>
