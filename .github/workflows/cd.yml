@@ -22,12 +22,7 @@ jobs:
       with:
         service_account_key: ${{ secrets.GCLOUD_AUTH }}
 
-    - name: GCP Storage
-      uses: convictional/gcp-storage-action@v0.1.1
-      with:
-        source_file: gs://pyrotracker-credentials/front/environment.prod.ts
-        destination_file: src/environments/environment.prod.ts
-        project_id: pyrotracker
+    - run: gsutil cp gs://pyrotracker-credentials/front/environment.prod.ts ./src/environments/environment.prod.ts
 
     - run: ng build --prod
 
