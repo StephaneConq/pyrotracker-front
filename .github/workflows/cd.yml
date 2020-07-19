@@ -29,7 +29,5 @@ jobs:
         destination_file: src/environments/environment.prod.ts
 
     - run: ng build --prod
- 
-    - uses: actions/gcloud/cli@master
-      with:
-        args: "app deploy app.yml --quiet --project=pyrotracker --version=${{steps.tag.outputs.tag}}"
+    
+    - run: gcloud app deploy app.yml --quiet --project=pyrotracker --version=${{steps.tag.outputs.tag}}
