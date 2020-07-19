@@ -1,6 +1,6 @@
 {
-  "name": "front",
-  "short_name": "front",
+  "name": "Pyrotracker",
+  "short_name": "Pyrotracker",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
