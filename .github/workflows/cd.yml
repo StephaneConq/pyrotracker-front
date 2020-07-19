@@ -15,7 +15,7 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: '12'
-    - run: npm install
+
 
     - name: Setup gcloud environment
       uses: GoogleCloudPlatform/github-actions@0.1.2
@@ -24,6 +24,8 @@ jobs:
 
     - run: gsutil cp gs://pyrotracker-credentials/front/environment.prod.ts ./src/environments/environment.prod.ts
 
-    - run: ng build --prod
+    - run: npm install
+
+    - run: npm run build:prod
 
     - run: gcloud app deploy app.yml --quiet --project=pyrotracker --version=${{steps.tag.outputs.tag}}
