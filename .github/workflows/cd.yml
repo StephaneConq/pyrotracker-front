@@ -1,15 +1,15 @@
 name: CD
- 
+
 on:
   create:
     tags:
       - v*
- 
+
 jobs:
   build:
- 
+
     runs-on: ubuntu-latest
-     
+
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
@@ -27,7 +27,8 @@ jobs:
       with:
         source_file: gs://pyrotracker-credentials/front/environment.prod.ts
         destination_file: src/environments/environment.prod.ts
+        project_id: pyrotracker
 
     - run: ng build --prod
-    
+
     - run: gcloud app deploy app.yml --quiet --project=pyrotracker --version=${{steps.tag.outputs.tag}}
