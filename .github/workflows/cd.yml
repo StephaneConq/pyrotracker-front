@@ -23,6 +23,7 @@ jobs:
         service_account_key: ${{ secrets.GCLOUD_AUTH }}
 
     - run: gsutil cp gs://pyrotracker-credentials/front/environment.prod.ts ./src/environments/environment.prod.ts
+    - run: gsutil cp gs://pyrotracker-credentials/front/environment.prod.ts ./src/environments/environment.ts
 
     - run: npm install
 
