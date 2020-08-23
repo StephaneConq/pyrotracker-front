@@ -9,6 +9,7 @@ import {MatMomentDateModule} from "@angular/material-moment-adapter";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
+import {MatTabsModule} from "@angular/material/tabs";
 
 const material = [
   MatToolbarModule,
@@ -20,7 +21,8 @@ const material = [
   MatMomentDateModule,
   MatSnackBarModule,
   MatSidenavModule,
-  MatListModule
+  MatListModule,
+  MatTabsModule
 ];
 
 @NgModule({

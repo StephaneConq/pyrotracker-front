@@ -12,4 +12,8 @@ export class FirestoreService {
     return this.firestore.collection('events').valueChanges({idField: 'id'});
   }
 
+  get recurrentEvents() {
+    return this.firestore.collection('recurrent').valueChanges({idField: 'id'});
+  }
+
 }

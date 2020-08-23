@@ -6,6 +6,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {UsersService} from "../../../_services/users.service";
 import {User} from "../../../_models/user";
 import {MatSelectionList} from "@angular/material/list";
+import {FirestoreService} from "../../../_services/firestore.service";
 
 @Component({
   selector: 'app-add-event',
@@ -22,13 +23,16 @@ export class AddEventComponent implements OnInit {
     private apiService: ApiService,
     private usersService: UsersService,
     private snackBar: MatSnackBar,
-    private changeDetection: ChangeDetectorRef
+    private changeDetection: ChangeDetectorRef,
+    private firestoreService: FirestoreService
     ) { }
 
   dateModel = null;
   hourModel = null;
   title = '';
   users: User[] = [];
+  recurrentEvents = [];
+  recurrentEventModel = '';
 
   ngOnInit(): void {
     if (this.data.date) {
@@ -42,11 +46,15 @@ export class AddEventComponent implements OnInit {
       this.users = [...users];
       this.changeDetection.detectChanges();
     });
+    this.firestoreService.recurrentEvents.subscribe((events) => {
+      this.recurrentEvents = events;
+      this.changeDetection.detectChanges();
+    });
   }
 
-  create() {
+  create(eventTitle = null) {
     const payload = {
-      title: this.title
+      title: eventTitle ? eventTitle : this.title
     };
     let date = this.dateModel.format('YYYY-MM-DD');
     if (this.hourModel) {
@@ -67,4 +75,16 @@ export class AddEventComponent implements OnInit {
     }
   }
 
+  deleteRecurrentEvent(id) {
+    this.apiService.delete('recurrent', id).subscribe(() => {
+      this.snackBar.open('Évènement supprimé', 'Fermer', {duration: 2000});
+    })
+  }
+
+  createRecurrentEvent(name) {
+    this.apiService.insert('recurrent', {name}).subscribe(() => {
+      this.recurrentEventModel = '';
+      this.snackBar.open('Évènement créé', 'Fermer', {duration: 2000});
+    });
+  }
 }

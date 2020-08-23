@@ -1,28 +1,63 @@
-<div fxLayout="column" fxLayoutAlign="center center">
-  <mat-form-field>
-    <mat-label>Titre</mat-label>
-    <input matInput [(ngModel)]="title">
-  </mat-form-field>
+<mat-tab-group>
+  <mat-tab label="Ajouter un évènement">
+    <div fxLayout="column" fxLayoutAlign="center center">
+      <mat-form-field>
+        <mat-label>Titre</mat-label>
+        <input matInput [(ngModel)]="title">
+      </mat-form-field>
 
-  <mat-form-field color="accent" appearance="fill">
-    <mat-label>Date</mat-label>
-    <input matInput [matDatepicker]="picker1" [(ngModel)]="dateModel">
-    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-    <mat-datepicker #picker1></mat-datepicker>
-  </mat-form-field>
+      <mat-form-field color="accent" appearance="fill">
+        <mat-label>Date</mat-label>
+        <input matInput [matDatepicker]="picker1" [(ngModel)]="dateModel">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Heure</mat-label>
-    <input matInput [(ngModel)]="hourModel" type="time">
-  </mat-form-field>
+      <mat-form-field>
+        <mat-label>Heure</mat-label>
+        <input matInput [(ngModel)]="hourModel" type="time">
+      </mat-form-field>
 
-  <mat-selection-list #selectedUsers *ngIf="users.length > 0" class="full-width">
-    <div mat-subheader>Assigné à</div>
-    <mat-list-option *ngFor="let user of users" [value]="user">
-      <img [src]="user.photoURL" mat-list-icon />
-      {{user.displayName}}
-    </mat-list-option>
-  </mat-selection-list>
+      <mat-selection-list #selectedUsers *ngIf="users.length > 0" class="full-width">
+        <div mat-subheader>Assigné à</div>
+        <mat-list-option *ngFor="let user of users" [value]="user">
+          <img [src]="user.photoURL" mat-list-icon />
+          {{user.displayName}}
+        </mat-list-option>
+      </mat-selection-list>
 
-  <button mat-raised-button (click)="create()">Créer</button>
-</div>
+      <button mat-raised-button (click)="create()">Créer</button>
+    </div>
+  </mat-tab>
+  <mat-tab label="Évènements récurrents">
+    <mat-list class="recurrent-event-container">
+      <mat-list-item *ngFor="let e of recurrentEvents">
+        <div mat-line>{{e.name}}</div>
+
+        <button mat-icon-button (click)="create(e.name)">
+          <mat-icon>done</mat-icon>
+        </button>
+
+        <button mat-icon-button (click)="deleteRecurrentEvent(e.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+
+      </mat-list-item>
+
+      <mat-list-item>
+        <div mat-line fxLayout="row" fxLayoutAlign="center center">
+          <mat-form-field fxFlex="90">
+            <mat-label>Nouvel évènement</mat-label>
+            <input matInput [(ngModel)]="recurrentEventModel" />
+          </mat-form-field>
+          <div fxFlex="10" fxLayoutAlign="center center">
+            <button mat-icon-button (click)="createRecurrentEvent(recurrentEventModel)">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </mat-tab>
+</mat-tab-group>
+
