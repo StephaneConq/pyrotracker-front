@@ -5,7 +5,14 @@
   Pyrotracker
 </mat-toolbar>
 <mat-drawer-container class="example-container" [hasBackdrop]="true">
-  <mat-drawer #drawer [mode]="'over'">I'm a drawer</mat-drawer>
+  <mat-drawer #drawer [mode]="'over'">
+
+    <div>
+      <button mat-button [routerLink]="''" (click)="drawer.toggle()">Calendrier</button>
+      <button mat-button [routerLink]="'weight'" (click)="drawer.toggle()">Le poids des gros</button>
+    </div>
+
+  </mat-drawer>
   <mat-drawer-content>
     <router-outlet></router-outlet>
   </mat-drawer-content>

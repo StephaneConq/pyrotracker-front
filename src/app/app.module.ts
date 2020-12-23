@@ -24,6 +24,11 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {ApiInterceptor} from "./_interceptor/api.interceptor";
 import { EventDetailsComponent } from './_components/bottomsheets/event-details/event-details.component';
+import { WeightComponent } from './_components/weight/weight.component';
+import {GoogleChartsModule} from "angular-google-charts";
+import { DataListComponent } from './_components/weight/data-list/data-list.component';
+import { ConfirmComponent } from './_dialogs/confirm/confirm.component';
+import { AddWeightComponent } from './_dialogs/add-weight/add-weight.component';
 
 registerLocaleData(localeFr);
 
@@ -34,6 +39,10 @@ registerLocaleData(localeFr);
     LoginComponent,
     AddEventComponent,
     EventDetailsComponent,
+    WeightComponent,
+    DataListComponent,
+    ConfirmComponent,
+    AddWeightComponent,
 
   ],
   imports: [
@@ -49,7 +58,8 @@ registerLocaleData(localeFr);
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    HttpClientModule
+    HttpClientModule,
+    GoogleChartsModule
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'fr-FR'},

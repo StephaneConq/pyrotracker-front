@@ -16,6 +16,14 @@ export class ApiService {
     return this.http.post(`/${collection}`, body);
   }
 
+  list(collection) {
+    return this.http.get(`/${collection}`);
+  }
+
+  update(collection, id, payload) {
+    return this.http.patch(`/${collection}/${id}`, payload);
+  }
+
   getUsers() {
     return this.http.get('/users');
   }

@@ -1,0 +1,18 @@
+<mat-form-field>
+  <mat-label>Animal</mat-label>
+  <mat-select [(ngModel)]="animalModel" (ngModelChange)="updateChart($event)">
+    <mat-option *ngFor="let a of animals" [value]="a">
+      {{a}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<div class="chart-container">
+  <google-chart [type]="chartType" [data]="weights"></google-chart>
+</div>
+
+<mat-tab-group (selectedIndexChange)="tabChanged($event)">
+  <mat-tab *ngFor="let a of animals" [label]="a">
+    <app-data-list (updateData)="updateData()" [animal]="a" [weightList]="getWeightList(a)"></app-data-list>
+  </mat-tab>
+</mat-tab-group>

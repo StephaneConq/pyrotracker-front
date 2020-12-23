@@ -1,0 +1,15 @@
+<mat-list>
+  <mat-list-item *ngFor="let w of weightList">
+    <div mat-line>{{w.weight}} Kg</div>
+    <div mat-line> {{w.timestamp | date}} </div>
+    <mat-icon (click)="edit(w)">edit</mat-icon>
+    <mat-icon (click)="delete(w)">delete</mat-icon>
+  </mat-list-item>
+</mat-list>
+
+<div class="add-container">
+  <button mat-fab color="primary" (click)="add()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+
